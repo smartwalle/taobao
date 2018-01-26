@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
-	"github.com/smartwalle/nox"
+	"github.com/smartwalle/ngx"
 	"net/url"
 	"sort"
 	"strings"
@@ -63,7 +63,7 @@ func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[s
 	sort.Strings(keys)
 	p.Add("sign", sign(appSecret, keys, p))
 
-	var req = nox.NewRequest("POST", TAO_BAO_OPEN_API_URL)
+	var req = ngx.NewRequest("POST", TAO_BAO_OPEN_API_URL)
 	req.SetHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
 	req.SetParams(p)
 
