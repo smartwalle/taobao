@@ -57,3 +57,51 @@ func (this *TaoBao) OpenIMDeleteUsers(param OpenIMDeleteUsersParam) (result *Ope
 	}
 	return result, err
 }
+
+func (this *TaoBao) OpenIMPushMsg(param OpenIMPushMsgParam) (result *OpenIMPushMsgRsp, err error) {
+	var r *openIMPushMsgRsp
+	err = this.doRequest(param, &r)
+	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
+		return r.Rsp, nil
+	}
+	return nil, err
+}
+
+func (this *TaoBao) OpenIMPushCustomMsg(param OpenIMPushCustomMsgParam) (result *OpenIMPushMsgRsp, err error) {
+	var r *openIMPushCustomMsgRsp
+	err = this.doRequest(param, &r)
+	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
+		return r.Rsp, nil
+	}
+	return nil, err
+}
+
+func (this *TaoBao) OpenIMCreateTribe(param OpenIMCreateTribeParam) (result *TribeInfo, err error) {
+	var r *openIMCreateTribeRsp
+	err = this.doRequest(param, &r)
+	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
+		return r.Rsp.TribeInfo, nil
+	}
+	return nil, err
+}
+
+func (this *TaoBao) OpenIMGetTribeInfo(param OpenIMGetTribeInfoParam) (result *TribeInfo, err error) {
+	var r *openIMGetTribeInfoRsp
+	err = this.doRequest(param, &r)
+	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
+		return r.Rsp.TribeInfo, nil
+	}
+	return nil, err
+}

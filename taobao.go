@@ -85,6 +85,7 @@ func (this *TaoBao) doRequest(param TaoBaoParam, result interface{}) (err error)
 	req.SetParams(p)
 
 	var rsp = req.Exec()
+	fmt.Println(rsp.String())
 	err = rsp.UnmarshalJSON(result)
 	return err
 }
