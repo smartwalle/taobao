@@ -1,8 +1,8 @@
 package taobao
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestTaoBao_OpenIMGetUsers(t *testing.T) {

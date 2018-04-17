@@ -5,7 +5,7 @@ import (
 )
 
 ////////////////////////////////////////////////////////////////////////////////
-type ITaoBaoParam interface{
+type ITaoBaoParam interface {
 	// 用于提供访问的 method
 	APIName() string
 
@@ -45,7 +45,6 @@ func (this TaoBaoParam) ExtJSONParamValue() string {
 func (this TaoBaoParam) AddParam(key string, value interface{}) {
 	this[key] = value
 }
-
 
 func marshal(obj interface{}) string {
 	var bytes, err = json.Marshal(obj)

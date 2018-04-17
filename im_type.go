@@ -56,6 +56,7 @@ type openIMGetUsersRsp struct {
 			UserInfos []*OpenIMUserInfo `json:"userinfos"`
 		} `json:"userinfos"`
 	} `json:"openim_users_get_response"`
+	Err *ErrorResponse `json:"error_response"`
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -92,17 +93,18 @@ func (this *OpenIMAddUsersParam) AddOpenIMUser(user *OpenIMUserInfo) {
 }
 
 type openIMAddUsersRsp struct {
-	Rsp struct{
-		UIDSuccList struct{
+	Rsp struct {
+		UIDSuccList struct {
 			String []string `json:"string"`
 		} `json:"uid_succ"`
-		UIDFailList struct{
+		UIDFailList struct {
 			String []string `json:"string"`
 		} `json:"uid_fail"`
-		FailMsgList struct{
+		FailMsgList struct {
 			String []string `json:"string"`
 		} `json:"fail_msg"`
 	} `json:"openim_users_add_response"`
+	Err *ErrorResponse `json:"error_response"`
 }
 
 type OpenIMAddUsersRsp struct {
@@ -123,17 +125,18 @@ func (this OpenIMUpdateUsersParam) APIName() string {
 }
 
 type openIMUpdateUsersRsp struct {
-	Rsp struct{
-		UIDSuccList struct{
+	Rsp struct {
+		UIDSuccList struct {
 			String []string `json:"string"`
 		} `json:"uid_succ"`
-		UIDFailList struct{
+		UIDFailList struct {
 			String []string `json:"string"`
 		} `json:"uid_fail"`
-		FailMsgList struct{
+		FailMsgList struct {
 			String []string `json:"string"`
 		} `json:"fail_msg"`
 	} `json:"openim_users_update_response"`
+	Err *ErrorResponse `json:"error_response"`
 }
 
 type OpenIMUpdateUsersRsp struct {
@@ -159,6 +162,7 @@ type openIMDeleteUsersRsp struct {
 			String []string `json:"string"`
 		} `json:"result"`
 	} `json:"openim_users_delete_response"`
+	Err *ErrorResponse `json:"error_response"`
 }
 
 type OpenIMDeleteUsersRsp struct {

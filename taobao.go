@@ -89,6 +89,10 @@ func (this *TaoBao) doRequest(param TaoBaoParam, result interface{}) (err error)
 	return err
 }
 
+func (this *TaoBao) DoRequest(param TaoBaoParam, result interface{}) (err error) {
+	return this.doRequest(param, result)
+}
+
 func sign(appSecret string, keys []string, param url.Values) (s string, err error) {
 	for _, key := range keys {
 		s = s + key + param.Get(key)

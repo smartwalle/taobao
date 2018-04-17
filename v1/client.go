@@ -71,7 +71,6 @@ func RequestWithKey(appKey, appSecret string, param ITaoBaoParam) (results map[s
 	err = rep.UnmarshalJSON(&results)
 	return results, err
 
-
 	//results, err = request.JSONRequest("POST", TAO_BAO_OPEN_API_URL, p)
 	//return results, err
 }

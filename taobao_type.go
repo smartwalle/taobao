@@ -1,9 +1,12 @@
 package taobao
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 ////////////////////////////////////////////////////////////////////////////////
-type TaoBaoParam interface{
+type TaoBaoParam interface {
 	// 用于提供访问的 method
 	APIName() string
 
@@ -45,6 +48,17 @@ type TaoBaoParam interface{
 //}
 //
 //
+
+type ErrorResponse struct {
+	Code    int    `json:"code"`
+	Msg     string `json:"msg"`
+	SubCode string `json:"sub_code"`
+	SubMsg  string `json:"sub_msg"`
+}
+
+func (this *ErrorResponse) Error() string {
+	return fmt.Sprintf("Code: %d, Msg: %s, SubCode: %s, SubMsg: %s", this.Code, this.Msg, this.SubCode, this.SubMsg)
+}
 
 func marshal(obj interface{}) string {
 	var bytes, err = json.Marshal(obj)

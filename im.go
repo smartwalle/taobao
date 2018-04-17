@@ -4,6 +4,9 @@ func (this *TaoBao) OpenIMGetUsers(param OpenIMGetUsersParam) (result []*OpenIMU
 	var r *openIMGetUsersRsp
 	err = this.doRequest(param, &r)
 	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
 		return r.Rsp.Userinfos.UserInfos, err
 	}
 	return result, err
@@ -13,6 +16,9 @@ func (this *TaoBao) OpenIMAddUsers(param OpenIMAddUsersParam) (result *OpenIMAdd
 	var r *openIMAddUsersRsp
 	err = this.doRequest(param, &r)
 	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
 		result = &OpenIMAddUsersRsp{}
 		result.SuccUIDList = r.Rsp.UIDSuccList.String
 		result.FailUIDList = r.Rsp.UIDFailList.String
@@ -26,6 +32,9 @@ func (this *TaoBao) OpenIMUpdateUsers(param OpenIMUpdateUsersParam) (result *Ope
 	var r *openIMUpdateUsersRsp
 	err = this.doRequest(param, &r)
 	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
 		result = &OpenIMUpdateUsersRsp{}
 		result.SuccUIDList = r.Rsp.UIDSuccList.String
 		result.FailUIDList = r.Rsp.UIDFailList.String
@@ -39,6 +48,9 @@ func (this *TaoBao) OpenIMDeleteUsers(param OpenIMDeleteUsersParam) (result *Ope
 	var r *openIMDeleteUsersRsp
 	err = this.doRequest(param, &r)
 	if r != nil {
+		if r.Err != nil {
+			return nil, r.Err
+		}
 		result = &OpenIMDeleteUsersRsp{}
 		result.Result = r.Rsp.Result.String
 		return result, nil

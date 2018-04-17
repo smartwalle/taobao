@@ -1,8 +1,8 @@
 package taobao
 
 import (
-	"testing"
 	"os"
+	"testing"
 )
 
 var client *TaoBao
