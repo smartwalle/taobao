@@ -38,7 +38,6 @@ func New(appKey, appSecret string, isProduction bool) (client *TaoBao) {
 
 func (this *TaoBao) URLValues(param TaoBaoParam) (value url.Values, err error) {
 	var p = url.Values{}
-	var keys = make([]string, 6, 6)
 
 	p.Add("timestamp", time.Now().Format("2006-01-02 15:04:05"))
 	p.Add("format", "json")
@@ -47,27 +46,17 @@ func (this *TaoBao) URLValues(param TaoBaoParam) (value url.Values, err error) {
 	p.Add("app_key", this.appKey)
 	p.Add("method", param.APIName())
 
-	keys[0] = "timestamp"
-	keys[1] = "format"
-	keys[2] = "v"
-	keys[3] = "sign_method"
-	keys[4] = "app_key"
-	keys[5] = "method"
-
 	if len(param.ExtJSONParamName()) > 0 {
 		p.Add(param.ExtJSONParamName(), param.ExtJSONParamValue())
-		keys = append(keys, param.ExtJSONParamName())
 	}
 
 	var ps = param.Params()
 	if ps != nil {
 		for key, value := range ps {
 			p.Add(key, value)
-			keys = append(keys, key)
 		}
 	}
-	sort.Strings(keys)
-	sign, err := sign(this.appSecret, keys, p)
+	sign, err := sign(this.appSecret, p)
 	if err != nil {
 		return nil, err
 	}
@@ -94,11 +83,13 @@ func (this *TaoBao) DoRequest(param TaoBaoParam, result interface{}) (err error)
 	return this.doRequest(param, result)
 }
 
-func sign(appSecret string, keys []string, param url.Values) (s string, err error) {
-	for _, key := range keys {
-		s = s + key + param.Get(key)
+func sign(appSecret string, param url.Values) (s string, err error) {
+	var pList = make([]string, 0, 0)
+	for key := range param {
+		pList = append(pList, key + param.Get(key))
 	}
-	s = fmt.Sprintf("%s%s%s", appSecret, s, appSecret)
+	sort.Strings(pList)
+	s = fmt.Sprintf("%s%s%s", appSecret, strings.Join(pList, ""), appSecret)
 	var m = md5.New()
 	if _, err = m.Write([]byte(s)); err != nil {
 		return "", err
